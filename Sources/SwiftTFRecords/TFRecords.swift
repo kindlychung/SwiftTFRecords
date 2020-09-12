@@ -38,6 +38,19 @@ public struct TFRecords {
     public init(withRecords records: [Record]) {
         self.records = records
     }
+
+    public static func count(data: Data) -> Int {
+        var pos = 0
+        var n = 0
+        while pos < data.count {
+            let length64 = data.subdata(in: pos..<pos+8).withUnsafeBytes {
+                $0.load(as: UInt64.self)
+            }
+            pos += (16 + Int(length64))
+            n + 1
+        }
+        return n
+    }
     
     public init(withData data: Data) {
         var records = [Record]()
