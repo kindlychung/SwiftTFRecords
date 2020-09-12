@@ -47,7 +47,7 @@ public struct TFRecords {
                 $0.load(as: UInt64.self)
             }
             pos += (16 + Int(length64))
-            n + 1
+            n += 1
         }
         return n
     }
